@@ -1,12 +1,14 @@
-<!-- resources/views/profile.blade.php -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <h1>User Profile</h1>
-    <p>Name: {{ $user['Firstname'] }}</p>
-    <p>Email: {{ $user['Lastname'] }}</p>
+   @include('header')
+    <h3>your personal information</h3><hr>
+    <p>First Name: {{$fname}} <br> Last Name: {{$lname}}</p>
+   @include('footer')
 </body>
 </html>
