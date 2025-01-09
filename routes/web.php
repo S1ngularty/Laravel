@@ -5,10 +5,11 @@ use App\Http\Controllers\testController;
 use App\Http\Controllers\profileController;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\bookController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/test/{fname}/{lname}', function ($fname, $lname){
     $data = [
@@ -22,7 +23,9 @@ Route::get('/test/{fname}/{lname}', function ($fname, $lname){
 ->where('lname', '[A-Za-z\-]+');
 ;
 
-Route::get('/store',[ItemController::class,'store'], function(){
+Route::get('/item/store',[ItemController::class,'store'], function(){
     return "stored successfully";
-})-> name('store');
+})-> name('item/store');
 
+Route::get('/book/store',[bookController::class, 'store']
+)->name('book/store');
