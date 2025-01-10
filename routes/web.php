@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\testController;
-use App\Http\Controllers\profileController;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Controllers\ItemController;
 use App\Http\Controllers\bookController;
+use App\Http\Controllers\productController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,11 +20,16 @@ Route::get('/test/{fname}/{lname}', function ($fname, $lname){
 })->name('test')
 ->where('fname', '[A-Za-z\-]+')
 ->where('lname', '[A-Za-z\-]+');
-;
 
-Route::get('/item/store',[ItemController::class,'store'], function(){
-    return "stored successfully";
-})-> name('item/store');
 
-Route::get('/book/store',[bookController::class, 'store']
-)->name('book/store');
+Route::get('book/create1',function (){
+return view('book');
+})->name('book.create');
+
+Route::get('book/create',[bookController::class, 'store'])->name('book.store');
+
+Route::get('product/create', function(){
+    return view('products');
+})->name('product.create');
+
+Route::get('product/store',[productController::class,'store'])->name('product.store');

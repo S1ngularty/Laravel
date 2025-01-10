@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class bookController extends Controller
 {
-    public function store(){
-        $sample_book = new Book();
-        $sample_book -> book_name='Kimetsu no Yaiba';
-        $sample_book->genre='Action';
-        $sample_book -> price =599.70;
-        $sample_book-> save();
-       return Redirect::route('home');
-    }
+   public function store (Request $book){
+    $nbook = new book();
+    $nbook -> book_name = $book['book_name'];
+    $nbook -> genre = $book['book_genre'];
+    $nbook -> price = $book['book_price'];
+    $nbook->save();
+
+    return Redirect::route('home');
+   }
 }
