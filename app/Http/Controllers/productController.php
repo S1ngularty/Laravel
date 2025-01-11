@@ -17,4 +17,9 @@ class productController extends Controller
 
        return Redirect::route('home');
     }
+
+    public function index (){
+        $product = products::all();
+        return view('products.index',['products' => $product]);
+    }
 }

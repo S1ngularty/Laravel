@@ -33,3 +33,5 @@ Route::get('product/create', function(){
 })->name('product.create');
 
 Route::get('product/store',[productController::class,'store'])->name('product.store');
+
+Route::get('product/index', [productController::class,'index'])->name('product.index');
