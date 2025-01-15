@@ -35,3 +35,5 @@ Route::get('product/create', function(){
 Route::get('product/store',[productController::class,'store'])->name('product.store');
 
 Route::get('product/index', [productController::class,'index'])->name('product.index');
+
+Route::get('edit/{id}',[productController::class,'edit'])->name('product.edit');

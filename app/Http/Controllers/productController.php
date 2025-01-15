@@ -22,4 +22,10 @@ class productController extends Controller
         $product = products::all();
         return view('products.index',['products' => $product]);
     }
+
+    public function edit($product_id){
+        $product = products::find($product_id);
+        return view('products.edit', compact('product'));
+
+    }
 }
