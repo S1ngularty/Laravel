@@ -21,7 +21,7 @@
 </style>
 <body>
     <div class="container" >
-        <form action="{{route('product.update')}}" method="POST" enctype="multipart/form-data" id="form" class="form-control">
+        <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data" id="form" class="form-control">
             @csrf
         <label for="" class="form-label">first name:</label>
         <input type="text" name="fname" id="fname" class="form-control">

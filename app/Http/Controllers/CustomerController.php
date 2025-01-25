@@ -71,7 +71,7 @@ class CustomerController extends Controller
             'age'=>$request->age,
             'city'=>$request->city
         ]);
-
+        
         if($customer){
             return Redirect::route('product.index');
         }else{
