@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\customer;
+use App\Models\UploadImage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -31,15 +34,30 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $customer =new customer();
-        $customer->fname= $request->fname;
-        $customer->lname= $request->lname;
-        $customer->age= $request->age;
-        $customer->city= $request->city;
-        if($customer->save()){
-            return Redirect::route('product.index');
-        }
+        if($request->has('img_path')){
+                    $filename=$request->file('img_path')->hashName();
+                
 
+                $customer =new customer();   
+                $customer->fname= $request->fname;
+                $customer->lname= $request->lname;
+                $customer->age= $request->age;
+                $customer->city= $request->city;
+                        if($customer->save()){
+                        
+                        $last_id=$customer->id;
+                        $image= new UploadImage();
+                        $image->customer_id=$last_id;
+                        $image->image_path=$filename;
+
+                        if( $image->save()){
+                            $path=$request->file('img_path')->storeAs('images',$filename,'public');
+                if($path){
+                            return Redirect::route('product.index');
+                }
+                        }
+                    }
+            }
     }
 
     /**
