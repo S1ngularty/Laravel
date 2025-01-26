@@ -9,6 +9,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -74,7 +75,12 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $customer= customer::find($id);
+        $customer= DB::table('customers as c')
+        ->join('customer_profiles as cp','cp.customer_id','=','c.id')
+        ->select('c.*','cp.image_path')
+        ->where('c.id','=',$id)
+        ->first();
+        // dd($customer);
         return view('customer.edit',['edit'=>$customer]);
     }
 

@@ -9,4 +9,8 @@ class UploadImage extends Model
 {
     use HasFactory;
     protected $table='customer_profiles';
+    protected $fillable=[
+        'customer_id',
+        'image_path'
+    ];
 }
