@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -35,9 +36,30 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+
+    $rules=[
+        'fname'=>'required|min:2',
+        'lname'=>'required|min:2|alpha',
+        'age'=>'required|min:18|numeric',
+        'city'=>'min:3',
+        'img_path'=>'mimes:jpeg,jpg,png'
+    ];
+
+    $message=[
+        'required'=> 'this information must be provided',
+        'extension'=> 'extension must be jpg, jpeg, or png'
+
+    ];
+
+    $validator=validator($request->all(),$rules,$message);
+
+    if($validator->fails()){
+        return redirect()->back()->withErrors($validator)->withInput();
+    }else{
+
         if($request->has('img_path')){
-                    $filename=$request->file('img_path')->hashName();
-                
+
+            $filename=$request->file('img_path')->hashName(); 
 
                 $customer =new customer();   
                 $customer->fname= $request->fname;
@@ -58,7 +80,10 @@ class CustomerController extends Controller
                 }
                         }
                     }
-            }
+        }
+    }
+
+        
     }
 
     /**

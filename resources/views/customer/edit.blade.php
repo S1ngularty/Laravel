@@ -27,7 +27,7 @@ img{
     height: 300px;
     width:300px ;
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 5px;  
 }
 
 .div2{
