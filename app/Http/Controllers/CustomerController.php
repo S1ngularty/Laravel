@@ -19,7 +19,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = customer::all();
+        $customer = customer::withTrashed()->get();
         return view('customer.index', ['fetch'=>$customer]);
     }
 
@@ -101,7 +101,7 @@ class CustomerController extends Controller
     public function edit(string $id)
     {
         $customer= DB::table('customers as c')
-        ->join('customer_profiles as cp','cp.customer_id','=','c.id')
+        ->leftjoin('customer_profiles as cp','cp.customer_id','=','c.id')
         ->select('c.*','cp.image_path')
         ->where('c.id','=',$id)
         ->first();
@@ -133,11 +133,20 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-    $del= customer::destroy($id);
-            if ($del){
+    $del= customer::find($id);
+            if ($del->delete($del)){
                 return Redirect::route('product.index');
             }else{
                 Redirect()->back();
             }
+    }
+
+    public function restore(string $id){
+        $restore= customer::withTrashed()->find($id)->restore();
+        if($restore){
+            return redirect()->back();
+        }else{
+            return 'failed to restore';
+        }
     }
 }

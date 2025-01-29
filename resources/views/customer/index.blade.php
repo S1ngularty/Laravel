@@ -26,9 +26,13 @@
             <td>{{$fetch->lname}}</td>
             <td>{{$fetch->age}}</td>
             <td>{{$fetch->city}}</td>
+            @if($fetch->deleted_at === null)
             <td><a href="{{route('product.edit',['id'=>$fetch->id])}}">Edit</a> &nbsp;
                 <a href="{{route('product.destroy',['id'=>$fetch->id])}}">Delete</a></td>
-            <td></td>
+                {{-- <a href="{{route('product.restore',['id'=>$fetch->id])}}">Restore</a></td> --}}
+            @else
+           <td><a href="{{route('product.restore',['id'=>$fetch->id])}}">Restore</a></td>
+            @endif
            </tr>
        @endforeach
     </table>
