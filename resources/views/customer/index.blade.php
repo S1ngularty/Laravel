@@ -20,23 +20,26 @@
             <th>City</th>
             <th>Action</th>
         </tr>
-       @foreach ($fetch as $fetch)
+       @foreach ($fetch as $info)
            <tr>
-            <td>{{$fetch->fname}}</td>
-            <td>{{$fetch->lname}}</td>
-            <td>{{$fetch->age}}</td>
-            <td>{{$fetch->city}}</td>
-            @if($fetch->deleted_at === null)
-            <td><a href="{{route('product.edit',['id'=>$fetch->id])}}">Edit</a> &nbsp;
-                <a href="{{route('product.destroy',['id'=>$fetch->id])}}">Delete</a></td>
+            <td>{{$info->fname}}</td>
+            <td>{{$info->lname}}</td>
+            <td>{{$info->age}}</td>
+            <td>{{$info->city}}</td>
+            @if($info->deleted_at === null)
+            <td><a href="{{route('product.edit',['id'=>$info->id])}}">Edit</a> &nbsp;
+                <a href="{{route('product.destroy',['id'=>$info->id])}}">Delete</a></td>
                 {{-- <a href="{{route('product.restore',['id'=>$fetch->id])}}">Restore</a></td> --}}
             @else
-           <td><a href="{{route('product.restore',['id'=>$fetch->id])}}">Restore</a></td>
+           <td><a href="{{route('product.restore',['id'=>$info->id])}}">Restore</a></td>
             @endif
            </tr>
        @endforeach
     </table>
 </div>
-   @endsection
+
+<div class="" style="display:flex; justify-content:center;">{{$fetch->links() }}</div>
+@endsection
+
 </body>
 </html>

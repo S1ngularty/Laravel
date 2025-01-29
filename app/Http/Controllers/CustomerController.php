@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+
 class CustomerController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = customer::withTrashed()->get();
+        $customer = customer::withTrashed()->paginate(10);
         return view('customer.index', ['fetch'=>$customer]);
     }
 
