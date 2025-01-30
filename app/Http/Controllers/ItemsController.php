@@ -8,6 +8,7 @@ use App\Models\item_category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ItemsController extends Controller
 {
@@ -38,19 +39,36 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $item=new items();
-        $item->item_name=$request->item_name;
-        $item->description=$request->item_description;
-        $item->price=$request->item_price;
-        $item->save();
-        $last_id=$item->id;
+        $rules=[
+            'item_name'=>'required|min:2',
+            'item_price'=>'required|min:1|decimal'
+        ];
 
-        $ic= new item_category();
-        $ic->item_id=$last_id;
-        $ic->category_id=$request->item_category;
-        $ic->save();
+        $message=[
+            'item_name'=>'this data must be provided, please enter valid format',
+            'item_price'=>'price must be provided.'
+        ];
 
-        return Redirect::route('item.index');
+        $validator=validator($request->all(),$rules,$message);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }else{
+            $item=new items();
+            $item->item_name=$request->item_name;
+            $item->description=$request->item_description;
+            $item->price=$request->item_price;
+            $item->save();
+            $last_id=$item->id;
+    
+            $ic= new item_category();
+            $ic->item_id=$last_id;
+            $ic->category_id=$request->item_category;
+            $ic->save();
+    
+            return Redirect::route('item.index');
+        }
+
 
     }
 

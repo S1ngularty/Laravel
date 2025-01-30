@@ -24,7 +24,10 @@
         <form action="{{route('item.store')}}" method="POST" enctype="multipart/form-data" id="form" class="form-control">
             @csrf
         <label for="" class="form-label">Item name:</label>
-        <input type="text" name="item_name" id="item_name" class="form-control">
+        <input type="text" name="item_name" id="item_name" value="{{old('item_name')}}" class="form-control">
+        @error('item_name')
+        <div class="alert alert-danger">{{$message}}</div>
+        @enderror
         <br>
         <label for="" class="form-label">Item Category:</label>
        <select name="item_category" id="item_category" class="form-select">
@@ -34,7 +37,10 @@
        </select>
         <br>
         <label for="" class="form-label">Price:</label>
-        <input type="number" name="item_price" id="item_price" class="form-control">
+        <input type="number" name="item_price" id="item_price" value="{{old('item_price')}}" class="form-control">
+        @error('item_price')
+        <div class="alert alert-danger">{{$message}}</div>
+        @enderror
         <br>
         <label for="" class="form-label">Item Description:</label>
         <input type="text" name="item_description" id="item_description" class="form-control">

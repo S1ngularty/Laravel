@@ -48,7 +48,7 @@ class CustomerController extends Controller
 
     $message=[
         'required'=> 'this information must be provided',
-        'extension'=> 'extension must be jpg, jpeg, or png'
+        'mimes'=> 'extension must be jpg, jpeg, or png'
 
     ];
 
