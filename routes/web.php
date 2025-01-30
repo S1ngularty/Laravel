@@ -35,6 +35,8 @@ Route::prefix('items')->group(function(){
     Route::get('/edit/{id}',[ItemsController::class,'edit'])->name('item.edit');
     Route::put('/update/{id}',[ItemsController::class,'update'])->name('item.update');
     Route::get('/destroy/{id}',[ItemsController::class,'destroy'])->name('item.destroy');
+    Route::get('/restore/{id}',[ItemsController::class,'restore'])->name('item.restore');
+
 
 
 

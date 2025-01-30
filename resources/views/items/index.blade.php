@@ -26,9 +26,12 @@
             <td>{{$items->category}}</td>
             <td>{{$items->price}}</td>
             <td>{{$items->description}}</td>
-            <td><a href="{{route('item.edit',['id'=>$items->id])}}">Edit</a> &nbsp;
-                <a href="{{route('item.destroy',['id'=>$items->id])}}">Delete</a></td>
-            <td></td>
+          @if($items->deleted_at===null) 
+          <td><a href="{{route('item.edit',['id'=>$items->id])}}">Edit</a> &nbsp;
+            <a href="{{route('item.destroy',['id'=>$items->id])}}">Delete</a></td>
+          @else
+         <td><a href="{{route('item.restore',['id'=>$items->id])}}">Restore</a></td>
+          @endif
            </tr>
        @endforeach
     </table>

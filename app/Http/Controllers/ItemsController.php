@@ -17,10 +17,10 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $item= DB::table('items as i')
-        ->join('category_item as ci','i.id','=','ci.item_id')
+        $item= items::withTrashed()
+        ->join('category_item as ci','items.id','=','ci.item_id')
         ->join('category as c','c.id','=','ci.category_id')
-        ->select('i.item_name','i.description','i.price','c.category','i.id')->get();
+        ->select('items.item_name','items.description','items.price','c.category','items.id','items.deleted_at')->get();
 
         return view('items.index', compact('item'));
     }
@@ -41,7 +41,7 @@ class ItemsController extends Controller
     {
         $rules=[
             'item_name'=>'required|min:2',
-            'item_price'=>'required|min:1|decimal'
+            'item_price'=>'required|min:1 '
         ];
 
         $message=[
@@ -123,9 +123,18 @@ class ItemsController extends Controller
      */
     public function destroy(items $items, string $id)
     {
-        $item=items::destroy($id);
-        if($item){
+        $item=items::find($id);
+        if($item->delete($id)){
             return Redirect::route('item.index');
+        }
+    }
+
+    public function restore(string $id){
+        $restore=items::withTrashed()->find($id)->restore();
+        if($restore){
+            return redirect()->back();
+        }else{
+            return 'failed to restore';
         }
     }
 }
