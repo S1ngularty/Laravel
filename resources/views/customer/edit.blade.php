@@ -42,7 +42,7 @@ img{
 
 </style>
 <body>
-        <form action="{{route('product.update',['id'=>$edit->id])}}" method="POST" enctype="multipart/form-data" id="form" class="form-control">
+        <form action="{{route('customer.update',['id'=>$edit->id])}}" method="POST" enctype="multipart/form-data" id="form" class="form-control">
             @csrf
             @method('PUT')
        <div class="maindiv" class="container">

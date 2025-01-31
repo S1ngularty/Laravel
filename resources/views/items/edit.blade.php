@@ -25,6 +25,11 @@
         <form action="{{route('item.update',['id'=>$item->id])}}" method="POST" enctype="multipart/form-data" id="form" class="form-control">
             @csrf
             @method('PUT')
+            <div class="div1">
+                <label for="" class="form-label">Item Picture</label>
+                
+            </div>
+       <div class="div2">
         <label for="" class="form-label">Item name:</label>
         <input type="text" name="item_name" id="item_name" class="form-control" value="{{$item->item_name}}">
         <br>
@@ -46,6 +51,7 @@
         <input type="text" name="item_description" id="item_description" class="form-control" value="{{$item->description}}">
         <br>
         <input type="submit" value="create" class="btn btn-primary" id="btn">
+       </div>
     </form>
     </div>
 </body>

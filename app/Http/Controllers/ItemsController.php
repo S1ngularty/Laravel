@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsController extends Controller
 {
@@ -54,17 +56,29 @@ class ItemsController extends Controller
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
         }else{
+
+            $filename=$request->file('image_path')->hashName();
+
             $item=new items();
             $item->item_name=$request->item_name;
             $item->description=$request->item_description;
             $item->price=$request->item_price;
+            $item->img_path=$filename;
             $item->save();
             $last_id=$item->id;
     
             $ic= new item_category();
             $ic->item_id=$last_id;
             $ic->category_id=$request->item_category;
-            $ic->save();
+
+            if($ic->save()){
+                $path=$request->file('image_path')->storeAs('item_images',$filename,'public');
+                if($path){
+                    return Redirect::route('item.index');
+                }else{
+                    return redirect()->back();  
+                }
+            }
     
             return Redirect::route('item.index');
         }

@@ -13,9 +13,21 @@
 }
 #form{
     display: flex;
-    flex-direction: column;
     justify-content:center;
+    height: 100%;
+    width: 80%;
+}
 
+#form img {
+    height: 300px;
+    width:300px ;
+}
+
+.div1, .div2 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin:50px ;
 }
 
 </style>
@@ -23,7 +35,14 @@
     <div class="container" >
         <form action="{{route('item.store')}}" method="POST" enctype="multipart/form-data" id="form" class="form-control">
             @csrf
-        <label for="" class="form-label">Item name:</label>
+            <div class="div1">
+                <label for="" class="form-label">Profile Image:</label>
+                <img src="" alt="">
+                <br>
+                <input type="file" name="image_path" class="form-control">
+            </div>
+        <div class="div2">
+            <label for="" class="form-label">Item name:</label>
         <input type="text" name="item_name" id="item_name" value="{{old('item_name')}}" class="form-control">
         @error('item_name')
         <div class="alert alert-danger">{{$message}}</div>
@@ -46,6 +65,7 @@
         <input type="text" name="item_description" id="item_description" class="form-control">
         <br>
         <input type="submit" value="create" class="btn btn-primary" id="btn">
+        </div>
     </form>
     </div>
 </body>

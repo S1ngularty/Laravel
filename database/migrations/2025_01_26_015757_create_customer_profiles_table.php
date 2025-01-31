@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('customer_profiles', function (Blueprint $table) {
             $table->unsignedBigInteger('customer_id');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->timestamps();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade')->onUpdate('cascade');
         });

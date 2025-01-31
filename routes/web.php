@@ -17,12 +17,12 @@ Route::prefix('customer')->group(function (){
     Route::get('/create', function (){
         return view ('customer.create');
     });
-    Route::get('/index',[CustomerController::class,'index'])->name('product.index');
-    Route::post('/store', [CustomerController::class,'store'])->name('product.store');
-    Route::get('/edit/{id}', [CustomerController::class,'edit'])->name('product.edit');
-    Route::put('/update/{id}', [CustomerController::class,'update'])->name('product.update');
-    Route::get('/destroy{id}', [CustomerController::class,'destroy'])->name('product.destroy');
-    Route::get('/restore/{id}', [CustomerController::class,'restore'])->name('product.restore');
+    Route::get('/index',[CustomerController::class,'index'])->name('customer.index');
+    Route::post('/store', [CustomerController::class,'store'])->name('customer.store');
+    Route::get('/edit/{id}', [CustomerController::class,'edit'])->name('customer.edit');
+    Route::put('/update/{id}', [CustomerController::class,'update'])->name('customer.update');
+    Route::get('/destroy{id}', [CustomerController::class,'destroy'])->name('customer.destroy');
+    Route::get('/restore/{id}', [CustomerController::class,'restore'])->name('customer.restore');
 
 
 });

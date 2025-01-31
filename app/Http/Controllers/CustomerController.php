@@ -77,7 +77,7 @@ class CustomerController extends Controller
                         if( $image->save()){
                             $path=$request->file('img_path')->storeAs('images',$filename,'public');
                 if($path){
-                            return Redirect::route('product.index');
+                            return Redirect::route('customer.index');
                 }
                         }
                     }
@@ -123,7 +123,7 @@ class CustomerController extends Controller
         ]);
         
         if($customer){
-            return Redirect::route('product.index');
+            return Redirect::route('customer.index');
         }else{
             return Redirect()->back();
         }
@@ -136,7 +136,7 @@ class CustomerController extends Controller
     {
     $del= customer::find($id);
             if ($del->delete($del)){
-                return Redirect::route('product.index');
+                return Redirect::route('customer.index');
             }else{
                 Redirect()->back();
             }
