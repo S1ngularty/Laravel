@@ -49,25 +49,43 @@ img{
         <div class="div1" class="container">
             <label for="" class="form-label">first name:</label>
             <input type="text" name="fname" id="fname" class="form-control" value="{{$edit->fname}}">
+            @error('fname')
+             <div class="alert alert-danger">{{$message}}</div>   
+            @enderror
             <br>
             <label for="" class="form-label">last name:</label>
             <input type="text" name="lname" id="lname" class="form-control" value="{{$edit->lname}}">
+            @error('lname')
+            <div class="alert alert-danger">{{$message}}</div>   
+           @enderror
             <br>
             <label for="" class="form-label">Age:</label>
             <input type="number" name="age" id="age" class="form-control" value="{{$edit->age}}">
+            @error('age')
+            <div class="alert alert-danger">{{$message}}</div>   
+           @enderror
             <br>
             <label for="" class="form-label">City:</label>
             <input type="text" name="city" id="city" class="form-control" value="{{$edit->city}}">
+            @error('city')
+            <div class="alert alert-danger">{{$message}}</div>   
+           @enderror
            </div>
           <div class="div2" class="container">
             <label for="" class="form-label">Profile:</label>
             <img src="{{asset('storage/images/'.$edit->image_path)}}" alt="">
-            
+            @error('fname')
+            <div class="alert alert-danger">{{$message}}</div>   
+           @enderror
+            <br>
             <input type="file" name="img_path" id="img_path" class="form-control" value="">
+            @error('img_path')
+            <div class="alert alert-danger">{{$message}}</div>   
+           @enderror
           </div>
        </div>
        
-        <input type="submit" value="Updaate" class="btn btn-primary" id="btn">
+        <input type="submit" value="Update" class="btn btn-primary" id="btn">
     </form>
 </body>
 </html>

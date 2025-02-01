@@ -101,6 +101,7 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
+
         $customer= DB::table('customers as c')
         ->leftjoin('customer_profiles as cp','cp.customer_id','=','c.id')
         ->select('c.*','cp.image_path')
@@ -115,6 +116,26 @@ class CustomerController extends Controller
      */
     public function update(Request $request,string $id )
     {
+        $rules=[
+            'fname'=>'required|min:2',
+            'lname'=>'required|min:2|alpha',
+            'age'=>'required|min:18|numeric',
+            'city'=>'min:3|alpha',
+        ];
+    
+        $message=[
+            'required'=> 'this information must be provided',
+            'mimes'=> 'extension must be jpg, jpeg, or png',
+            'alpha'=>'this field must must not contain any numbers or special characters'
+    
+        ];
+
+        $validator=validator($request->all(),$rules,$message);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }else{
+
         $customer=customer::where('id', $id)->update([
             'fname'=>$request->fname,
             'lname'=>$request->lname,
@@ -125,8 +146,9 @@ class CustomerController extends Controller
         if($customer){
             return Redirect::route('customer.index');
         }else{
-            return Redirect()->back();
+            return 'updating the record failed';
         }
+    }
     }
 
     /**
