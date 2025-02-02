@@ -99,6 +99,7 @@ class ItemsController extends Controller
      */
     public function edit(string $id)
     {
+        
         $item = DB::table('items as i')
         ->join('category_item as ci','ci.item_id','=','i.id')
         ->join('category as c', 'c.id','=','ci.category_id')
@@ -114,20 +115,37 @@ class ItemsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-     $item=items::where('id',$id)->update([
-        'item_name'=>$request->item_name,
-        'price'=>$request->item_price,
-        'description'=>$request->item_description
-     ]);
-        
-        $category=item_category::where("item_id",$id)->update([
-            'category_id'=>$request->item_category
-        ]);
-      if ($item) {
-    return redirect()->route('item.index')->with('success', 'Item updated successfully.');
-} else {
-    return redirect()->back()->with('error', 'Update failed or no changes detected.');
-}
+        $rules=[
+            'item_name'=>'required|min:2',
+            'item_price'=>'required|min:1 '
+        ];
+
+        $message=[
+            'item_name'=>'this data must be provided, please enter valid format',
+            'item_price'=>'price must be provided.'
+        ];
+
+        $validate= Validator($request->all(),$rules,$message);
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate)->withInput();
+        }else{
+            $item=items::where('id',$id)->update([
+                'item_name'=>$request->item_name,
+                'price'=>$request->item_price,
+                'description'=>$request->item_description
+             ]);
+                
+                $category=item_category::where("item_id",$id)->update([
+                    'category_id'=>$request->item_category
+                ]);
+              if ($item) {
+            return redirect()->route('item.index')->with('success', 'Item updated successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Update failed or no changes detected.');
+        }
+        }
+
+    
     }
 
     

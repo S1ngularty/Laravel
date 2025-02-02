@@ -32,6 +32,9 @@
        <div class="div2">
         <label for="" class="form-label">Item name:</label>
         <input type="text" name="item_name" id="item_name" class="form-control" value="{{$item->item_name}}">
+        @error('item_name')
+            <div class="alert alert-danger">{{$message}}</div>
+        @enderror
         <br>
         <label for="" class="form-label">Item Category:</label>
        <select name="item_category" id="item_category" class="form-select" value="{{$item->category}}">
@@ -46,6 +49,9 @@
         <br>
         <label for="" class="form-label">Price:</label>
         <input type="number" name="item_price" id="item_price" class="form-control" value="{{$item->price}}">
+        @error('item_price')
+        <div class="alert alert-danger">{{$message}}</div>
+    @enderror
         <br>
         <label for="" class="form-label">Item Description:</label>
         <input type="text" name="item_description" id="item_description" class="form-control" value="{{$item->description}}">
