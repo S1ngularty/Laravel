@@ -37,7 +37,13 @@ Route::prefix('items')->group(function(){
     Route::get('/destroy/{id}',[ItemsController::class,'destroy'])->name('item.destroy');
     Route::get('/restore/{id}',[ItemsController::class,'restore'])->name('item.restore');
 
+});
 
-
-
+Route::prefix('category')-> group(function(){
+    Route::get('/index',[categoryController::class,'index'])->name('category.index');
+    Route::get('/create',[categoryController::class,'create'])->name("category.create");
+    Route::post('/store',[categoryController::class,'store'])->name('category.store');
+    Route::get('/edit/[id]',[categoryController::class,' edit'])->name('category.edit');
+    Route::put('/update/[id]',[categoryController::class,'update'])->name('category.update');
+    Route::get('/destroy/[id]',[categoryController::class,'destroy'])->name('category.destroy');
 });

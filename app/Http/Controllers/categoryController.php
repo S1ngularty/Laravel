@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class categoryController extends Controller
 {
@@ -11,7 +13,8 @@ class categoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = category::all();
+        return view('category.index',compact('category'));
     }
 
     /**
@@ -19,7 +22,7 @@ class categoryController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -27,7 +30,11 @@ class categoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new category();
+        $category->category= $request->category_name;
+        $category->save();
+
+        return Redirect::route('category.index');
     }
 
     /**
