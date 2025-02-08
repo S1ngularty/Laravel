@@ -40,10 +40,12 @@ Route::prefix('items')->group(function(){
 });
 
 Route::prefix('category')-> group(function(){
+
     Route::get('/index',[categoryController::class,'index'])->name('category.index');
     Route::get('/create',[categoryController::class,'create'])->name("category.create");
     Route::post('/store',[categoryController::class,'store'])->name('category.store');
-    Route::get('/edit/[id]',[categoryController::class,' edit'])->name('category.edit');
-    Route::put('/update/[id]',[categoryController::class,'update'])->name('category.update');
-    Route::get('/destroy/[id]',[categoryController::class,'destroy'])->name('category.destroy');
+    Route::get('/edit/{id}',[categoryController::class,'edit'])->name('category.edit');
+    Route::put('/update/{id}',[categoryController::class,'update'])->name('category.update');
+    Route::get('/destroy/{id}',[categoryController::class,'destroy'])->name('category.destroy');
+    Route::get('/restore/{id}',[categoryController::class,'restore'])->name('category.restore');
 });

@@ -19,10 +19,11 @@
 </style>
 <body>
     <div class="container">
-        <form action="{{route('category.store')}}" method="POST">
+        <form action="{{route('category.update',['id'=>$category->id])}}" method="POST">
             @csrf
+            @method('PUT')
             <label for="" class="form-label">Category Name:</label>
-            <input type="text" class="form-control" placeholder="category name" name="category_name">
+            <input type="text" class="form-control" placeholder="category name" value="{{$category->category}}" name="category_name">
             <br>
             <input type="submit" name="" class="btn btn-primary">
         </form>
